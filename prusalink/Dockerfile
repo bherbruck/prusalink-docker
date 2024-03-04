@@ -1,14 +1,29 @@
 FROM python:3.11-slim
 
+ARG PIGPIO=false
+ARG CAMERA=false
+
+WORKDIR /app
+
+# Install required dependencies
 RUN apt-get update && apt-get install -y \
-  libcap-dev libmagic1 libturbojpeg0 libopenblas0 \
-  libatlas-base-dev python3-numpy libffi-dev \
-  python3-libcamera pigpio
+    libcap-dev libmagic1 libturbojpeg0 libopenblas0 \
+    libatlas-base-dev python3-numpy libffi-dev gcc
+
+# Install optional dependencies
+RUN if [ "$PIGPIO" = "true" ]; then apt-get install -y pigpio; fi && \
+    if [ "$CAMERA" = "true" ]; then apt-get install -y python3-libcamera; fi
 
 RUN pip install prusalink
 
-COPY ./entrypoint.sh /entrypoint.sh
+COPY ./entrypoint.sh ./entrypoint.sh
 
-RUN chmod +x /entrypoint.sh
+RUN chmod +x ./entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Create a non-root user
+RUN useradd -rM -d /app prusa && \
+    chown -R prusa:prusa /app
+
+USER prusa
+
+ENTRYPOINT ["./entrypoint.sh"]

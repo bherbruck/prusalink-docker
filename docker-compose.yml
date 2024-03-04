@@ -2,7 +2,11 @@ version: "2.4"
 
 services:
   prusalink:
-    build: ./prusalink
+    build:
+      context: ./prusalink
+      args:
+        - PIGPIO=false
+        - CAMERA=false
     network_mode: host
     environment:
       - PRUSALINK_PORT=8080
