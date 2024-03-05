@@ -1,6 +1,13 @@
 #!/bin/bash
 
-echo "Starting prusalink on port ${PRUSALINK_PORT}"
+ADDRESS=${PRUSALINK_ADDRESS:=0.0.0.0}
+PORT=${PRUSALINK_TCP_PORT:=8080}
+SERIAL_PORT=${PRUSALINK_SERIAL_PORT:='auto'}
 
-prusalink \
-  --tcp-port ${PRUSALINK_PORT}
+echo "Port: $PORT"
+
+prusalink start \
+  --foreground \
+  --address $ADDRESS \
+  --tcp-port $PORT \
+  --serial-port $SERIAL_PORT
