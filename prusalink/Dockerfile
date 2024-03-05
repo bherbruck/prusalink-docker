@@ -5,10 +5,13 @@ ARG CAMERA=false
 
 WORKDIR /app
 
+ENV PYTHONUNBUFFERED=1
+
 # Install required dependencies
 RUN apt-get update && apt-get install -y \
+    bash gcc \
     libcap-dev libmagic1 libturbojpeg0 libopenblas0 \
-    libatlas-base-dev python3-numpy libffi-dev gcc
+    libatlas-base-dev python3-numpy libffi-dev
 
 # Install optional dependencies
 RUN if [ "$PIGPIO" = "true" ]; then apt-get install -y pigpio; fi && \
