@@ -12,7 +12,7 @@ services:
     environment:
       - PRUSALINK_PORT=8080
     volumes:
-      - prusalink-data:/data
+      - prusalink-data:/root
 
 volumes:
   prusalink-data:

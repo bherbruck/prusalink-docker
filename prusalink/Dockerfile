@@ -5,8 +5,6 @@ ARG CAMERA=false
 
 WORKDIR /app
 
-VOLUME /data
-
 ENV PYTHONUNBUFFERED=1
 
 # Install required dependencies
@@ -24,11 +22,5 @@ RUN pip install prusalink
 COPY ./entrypoint.sh ./entrypoint.sh
 
 RUN chmod +x ./entrypoint.sh
-
-# # Create a non-root user
-# RUN useradd -rM -d /app prusa && \
-#     chown -R prusa:prusa /app
-
-# USER prusa
 
 ENTRYPOINT ["./entrypoint.sh"]

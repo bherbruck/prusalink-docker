@@ -8,7 +8,6 @@ echo "Listening on $ADDRESS:$PORT"
 
 prusalink start \
   --foreground \
-  --config /data/prusalink.ini \
   --address $ADDRESS \
   --tcp-port $PORT \
   --serial-port $SERIAL_PORT
