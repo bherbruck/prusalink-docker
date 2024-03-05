@@ -8,5 +8,11 @@ services:
         - PIGPIO=false
         - CAMERA=false
     network_mode: host
+    privileged: true
     environment:
       - PRUSALINK_PORT=8080
+    volumes:
+      - prusalink-data:/data
+
+volumes:
+  prusalink-data:
